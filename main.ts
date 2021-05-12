@@ -1,5 +1,26 @@
+namespace SpriteKind {
+    export const laser = SpriteKind.create()
+    export const rock = SpriteKind.create()
+}
+sprites.onOverlap(SpriteKind.laser, SpriteKind.rock, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.disintegrate, 500)
+    game.over(false, effects.melt)
+})
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    shot = sprites.createProjectileFromSprite(assets.image`Shot`, mySprite, 0, -50)
+})
+sprites.onOverlap(SpriteKind.rock, SpriteKind.Player, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.disintegrate, 2000)
+    game.over(false, effects.melt)
+})
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.disintegrate, 2000)
+    game.over(false, effects.melt)
+})
+let shot: Sprite = null
+let mySprite: Sprite = null
 music.powerUp.play()
-let mySprite = sprites.create(img`
+mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -18,7 +39,6 @@ let mySprite = sprites.create(img`
     . . f . . . . . . . . . . . f . 
     `, SpriteKind.Player)
 mySprite.setStayInScreen(true)
-controller.moveSprite(mySprite, 100, 0)
 controller.moveSprite(mySprite, 100, 100)
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -159,7 +179,7 @@ let mySprite2 = sprites.create(img`
     . . . . c b a c c b b b c . . . 
     . . . . c b b a a 6 b c . . . . 
     . . . . . . b 6 6 c c . . . . . 
-    `, SpriteKind.Projectile)
+    `, SpriteKind.rock)
 mySprite2.setPosition(50, 0)
 mySprite2.setVelocity(20, 40)
 let mySprite3 = sprites.create(img`
@@ -179,7 +199,7 @@ let mySprite3 = sprites.create(img`
     . . . . c b b b 6 6 c . . . . . 
     . . . . . c a 6 6 b c . . . . . 
     . . . . . . . c c c . . . . . . 
-    `, SpriteKind.Projectile)
+    `, SpriteKind.rock)
 mySprite3.setPosition(100, 0)
 mySprite3.setVelocity(0, 50)
 let mySprite4 = sprites.create(img`
@@ -241,7 +261,7 @@ game.onUpdateInterval(5000, function () {
         . . . . c b a c c b b b c . . . 
         . . . . c b b a a 6 b c . . . . 
         . . . . . . b 6 6 c c . . . . . 
-        `, SpriteKind.Projectile)
+        `, SpriteKind.rock)
     mySprite2.setPosition(80, 0)
     mySprite2.setVelocity(20, 40)
     mySprite3 = sprites.create(img`
@@ -261,7 +281,7 @@ game.onUpdateInterval(5000, function () {
         . . . . c b b b 6 6 c . . . . . 
         . . . . . c a 6 6 b c . . . . . 
         . . . . . . . c c c . . . . . . 
-        `, SpriteKind.Projectile)
+        `, SpriteKind.rock)
     mySprite3.setPosition(90, 0)
     mySprite3.setVelocity(0, 50)
     scene.cameraShake(2, 1000)
@@ -284,7 +304,7 @@ game.onUpdateInterval(2000, function () {
         . . . . c b a c c b b b c . . . 
         . . . . c b b a a 6 b c . . . . 
         . . . . . . b 6 6 c c . . . . . 
-        `, SpriteKind.Projectile)
+        `, SpriteKind.rock)
     mySprite2.setPosition(14, 0)
     mySprite2.setVelocity(20, 40)
     mySprite3 = sprites.create(img`
@@ -304,7 +324,7 @@ game.onUpdateInterval(2000, function () {
         . . . . c b b b 6 6 c . . . . . 
         . . . . . c a 6 6 b c . . . . . 
         . . . . . . . c c c . . . . . . 
-        `, SpriteKind.Projectile)
+        `, SpriteKind.rock)
     mySprite3.setPosition(33, 0)
     mySprite3.setVelocity(0, 50)
     info.changeScoreBy(1)
