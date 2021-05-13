@@ -6,7 +6,7 @@ sprites.onOverlap(SpriteKind.laser, SpriteKind.rock, function (sprite, otherSpri
     otherSprite.destroy(effects.disintegrate, 500)
     game.over(false, effects.melt)
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     shot = sprites.createProjectileFromSprite(assets.image`Shot`, mySprite, 0, -50)
 })
 sprites.onOverlap(SpriteKind.rock, SpriteKind.Player, function (sprite, otherSprite) {
