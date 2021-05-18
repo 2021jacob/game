@@ -2,22 +2,34 @@ namespace SpriteKind {
     export const laser = SpriteKind.create()
     export const rock = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.laser, SpriteKind.rock, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.disintegrate, 500)
-    game.over(false, effects.melt)
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     shot = sprites.createProjectileFromSprite(assets.image`Shot`, mySprite, 0, -50)
 })
 sprites.onOverlap(SpriteKind.rock, SpriteKind.Player, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.disintegrate, 2000)
-    game.over(false, effects.melt)
+    game.over(false)
+    mySprite.destroy(effects.disintegrate, 2000)
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.disintegrate, 2000)
-    game.over(false, effects.melt)
+    game.over(false)
+    mySprite.destroy(effects.disintegrate, 2000)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.rock, function (sprite, otherSprite) {
+    mySprite2.destroy()
+    shot.destroy()
+    otherSprite.destroy(effects.disintegrate, 500)
+})
+info.onLifeZero(function () {
+    game.over(false)
+    mySprite.destroy(effects.disintegrate, 2000)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    mySprite4.destroy()
+    shot.destroy()
+    otherSprite.destroy(effects.disintegrate, 500)
 })
 let shot: Sprite = null
+let mySprite4: Sprite = null
+let mySprite2: Sprite = null
 let mySprite: Sprite = null
 music.powerUp.play()
 mySprite = sprites.create(img`
@@ -162,7 +174,7 @@ scene.setBackgroundImage(img`
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     `)
-let mySprite2 = sprites.create(img`
+mySprite2 = sprites.create(img`
     . . . . . . . . c c c c . . . . 
     . . . . c c c c c c c c c . . . 
     . . . c f c c a a a a c a c . . 
@@ -202,7 +214,7 @@ let mySprite3 = sprites.create(img`
     `, SpriteKind.rock)
 mySprite3.setPosition(100, 0)
 mySprite3.setVelocity(0, 50)
-let mySprite4 = sprites.create(img`
+mySprite4 = sprites.create(img`
     . . . . . . . c d . . . . . . . 
     . . . . . . . c d . . . . . . . 
     . . . . . . . c d . . . . . . . 
